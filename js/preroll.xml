@@ -1,0 +1,21 @@
+<!-- <?xml version="1.0"?>
+<VAST version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast3_draft.xsd">
+  <Ad id="midroll-1" sequence="1">
+    <InLine>
+      <AdSystem version="2.0">ZS Player</AdSystem>
+      <AdTitle>ZsCz AD</AdTitle>
+      <Creatives>
+        <Creative sequence="1">
+          <Linear skipoffset="00:00:02">
+            <VideoClicks>
+              <ClickThrough>https://www.xiangkanju.cc</ClickThrough>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile id="1" delivery="progressive" type="video/mp4" width="100%" height="100%">/zs/cache/feiyan_kj.m3u8?ad</MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+    </Creatives>
+  </InLine>
+</Ad>
+</VAST> -->
