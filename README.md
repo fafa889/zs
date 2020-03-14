@@ -1,0 +1,2 @@
+# zs
+cdn for zscz
