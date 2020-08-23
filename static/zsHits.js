@@ -1,50 +1,92 @@
-window.alert=function(msg,callback){var div=document.createElement("div");div.innerHTML="<style type=\"text/css\">"+".nbaMask { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); }                                                                                                                                                                       "+".nbaMaskTransparent { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; }                                                                                                                                                                                            "+".nbaDialog { position: fixed; z-index: 5000; width: 80%; max-width: 300px; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background-color: #fff; text-align: center; border-radius: 8px; overflow: hidden; opacity: 1; color: white; }"+".nbaDialog .nbaDialogHd { padding: .2rem .27rem .08rem .27rem; }                                                                                                                                                                                                                         "+".nbaDialog .nbaDialogHd .nbaDialogTitle { font-size: 17px; font-weight: 400; }                                                                                                                                                                                                           "+".nbaDialog .nbaDialogBd { padding: 0 .27rem; font-size: 15px; line-height: 1.3; word-wrap: break-word; word-break: break-all; color: #000000; }                                                                                                                                          "+".nbaDialog .nbaDialogFt { position: relative; line-height: 48px; font-size: 17px; display: -webkit-box; display: -webkit-flex; display: flex; }                                                                                                                                          "+".nbaDialog .nbaDialogFt:after { content: \" \"; position: absolute; left: 0; top: 0; right: 0; height: 1px; border-top: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleY(0.5); transform: scaleY(0.5); }               "+".nbaDialog .nbaDialogBtn { display: block; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; color: #09BB07; text-decoration: none; -webkit-tap-highlight-color: transparent; position: relative; margin-bottom: 0; }                                                                       "+".nbaDialog .nbaDialogBtn:after { content: \" \"; position: absolute; left: 0; top: 0; width: 1px; bottom: 0; border-left: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5); }             "+".nbaDialog a { text-decoration: none; -webkit-tap-highlight-color: transparent; }"+"</style>"+"<div id=\"dialogs2\" style=\"display: none\">"+"<div class=\"nbaMask\"></div>"+"<div class=\"nbaDialog\">"+" <div class=\"nbaDialogHd\">"+" <strong class=\"nbaDialogTitle\"></strong>"+" </div>"+" <div class=\"nbaDialogBd\" id=\"dialog_msg2\"></div>"+" <div class=\"nbaDialogHd\">"+"     <strong class=\"nbaDialogTitle\"></strong>"+" </div>"+" <div class=\"nbaDialogFt\">"+"     <a href=\"javascript:;\" class=\"nbaDialogBtn nbaDialogBtnPrimary\" id=\"dialog_ok2\">确定</a>"+" </div></div></div>";document.body.appendChild(div);var dialogs2=document.getElementById("dialogs2");dialogs2.style.display='block';var dialog_msg2=document.getElementById("dialog_msg2");dialog_msg2.innerHTML=msg;var dialog_ok2=document.getElementById("dialog_ok2");dialog_ok2.onclick=function(){dialogs2.style.display='none';callback()}};
 var MAC = {
 	'Hits': function(tab, id) {
-		$.get(SitePath + "inc/ajax.php?ac=hits&tab=" + tab + "&id=" + id, function(r) {
-			$('#hits').html(r)
-		})
-	},
+		$.get(SitePath + "inc/ajax.php?ac=hits&tab=" + tab + "&id=" + id, function(r) {$('#hits').html(r)})
+	},	
 	'UserFav':function(id){
 		$.get(SitePath+"inc/ajax.php?ac=userfav&id="+id+"&rnd="+Math.random(),function(r){
-			if(r=="ok"){ alert("会员收藏成功"); }
-			else if(r=="login"){ alert('请先登录后再进行会员收藏操作'); }
-			else if(r=="haved"){ alert('您已经收藏过了'); }
-			else{ alert('发生错误'); }
-		});
+			if(r=="ok"){ Swal.fire({text:'会员收藏成功！',type:'success',showConfirmButton:false,timer:1500}); }
+			else if(r=="login"){ Swal.fire({text:'请先登录后再进行会员收藏操作！',type:'success',showConfirmButton:false,timer:1500}); }
+			else if(r=="haved"){ Swal.fire({text:'您已经收藏过了！',type:'success',showConfirmButton:false,timer:1500}); }
+			else{ Swal.fire({text:'发生错误！',type:'success',showConfirmButton:false,timer:1500}); }
+		});  
+	},
+	'Au_q': function() {
+		Swal.fire({text:'找回密码请联系管理员 QQ：3324219893',type:'success'});
 	},	
+	'Out': function() {
+		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 5000,
+			success: function($r) {
+				Swal.fire({
+					text: '您已退出登录！',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+				setTimeout(function() {location.href = '/';}, 1500);
+			}
+		});
+	},
+	'Login': function Login() {
+		Swal.fire({
+			title: '用户登录 - XiangKanJu.Cc',
+			type: 'info',
+			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" href="/signup/reg.php">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			showCloseButton: true,
+			showCancelButton: false,
+			focusConfirm: false,
+			confirmButtonText: '登录'
+		}).then(function(result) {
+			if (result.value) {
+				swal.showLoading();
+				name = $("#u_name").val();
+				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,
+					error: function() {
+						Swal.fire({
+							text: '登录失败!',
+							type: 'warning',
+							showConfirmButton: false,
+							timer: 1500
+						});
+					},
+					success: function ($r,$name) {
+						if ($r.indexOf('您输入') > -1) {
+							Swal.fire({
+								text: '账户或密码错误，请重试!',
+								type: 'warning',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						} else if ($r.indexOf('登录成功')) {
+							Swal.fire({
+								title: '想看剧欢迎您！登录成功',
+								type: 'success',
+								showConfirmButton: true,
+								timer: 1500
+							});
+							setTimeout(function() {
+								location.href = location.href;
+							}, 1500);
+						} else {
+							Swal.fire({
+								text: '未知错误!',
+								type: 'warning',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						}
+					}
+				});
+			}
+		});
+	}	
 };
-
-var modal=document.getElementById('login');var l_name=$("#u_name").val();window.onclick=function(event){if(event.target==modal){modal.style.display="none";MAC.Cookie.Set('userid',l_name,'12')}}
-
-document.writeln("<div id=\"login\" class=\"modal\"><form class=\"main-box\" id=\"loginform_web\" method=\"post\" action=\"/?m=user-check.html\"><blockquote>用户登录 - XiangKanJu.Cc <button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\'document.getElementById(\"login\").style.display=\"none\"\'>&times;</button></blockquote><div class=\"input-group\"><span class=\"input-group-addon\">用户</span> <input type=\"text\" class=\"form-control\" id=\"u_name\" name=\"u_name\" placeholder=\"请输入用户名\"></div><br><div class=\"input-group\"><span class=\"input-group-addon\">密码</span> <input type=\"password\" class=\"form-control\" id=\"u_password\" name=\"u_password\" placeholder=\"6-16个字符\"></div><br><button type=\"submit\" class=\"btn btn-primary btn-block\">确认登录</button> <a id=\"nav\" class=\"extra\" rel=\"nofollow\" href=\"/signup/reg.php\">没有账号？注册</a><a class=\"extra\" href=\"javascript:alert(\'找回密码请联系管理员 QQ：3324219893\');\">找回密码？</a></form></div>");
 
 if (/Android|webOS|iPhone|iPod|iPad|Windows Phone|BlackBerry|Mobile/i.test(navigator.userAgent)) {
 	var url = window.location.pathname + window.location.search;
 	window.location.href = '//v.xiangkanju.cc' + url;
 };
-function setTab(a, b, n) {
-	$(".tab-pane").hide();
-	$("[id^='down']").attr("class", "");
-	for (i = 1; i <= n; i++) {
-		var c = document.getElementById(a + i);
-		var d = document.getElementById("con_" + a + "_" + i);
-		c.className = i == b ? "active" : "";
-		d.style.display = i == b ? "block" : "none"
-	}
-}
 
-function setTab2(a, b, n) {
-	$(".content").hide();
-	$("[id^='latest']").attr("class", "");
-	for (i = 1; i <= n; i++) {
-		var c = document.getElementById(a + i);
-		var d = document.getElementById("con_" + a + "_" + i);
-		c.className = i == b ? "active" : "";
-		d.style.display = i == b ? "block" : "none"
-	}
-}
-setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新缓存成功')}})}
+setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新成功')}})}
 if (window["console"]) {
 	console.log("%c大兄弟，感谢前来捉虫！", " text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:1.5em");
 }
