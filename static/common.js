@@ -1,13 +1,79 @@
-﻿var MAC = {	
+var MAC = {
 	'Hits': function(tab, id) {
-		$.get(SitePath+"inc/ajax.php?ac=hits&tab="+tab+"&id="+id,function(r){$('#hits').html(r);});
+		$.get(SitePath + "inc/ajax.php?ac=hits&tab=" + tab + "&id=" + id, function(r) {$('#hits').html(r)})
+	},	
+	'UserFav':function(id){
+		$.get(SitePath+"inc/ajax.php?ac=userfav&id="+id+"&rnd="+Math.random(),function(r){
+			if(r=="ok"){ Swal.fire({text:'会员收藏成功！',type:'success',showConfirmButton:false,timer:1500}); }
+			else if(r=="login"){ Swal.fire({text:'请先登录后再进行会员收藏操作！',type:'success',showConfirmButton:false,timer:1500}); }
+			else if(r=="haved"){ Swal.fire({text:'您已经收藏过了！',type:'success',showConfirmButton:false,timer:1500}); }
+			else{ Swal.fire({text:'发生错误！',type:'success',showConfirmButton:false,timer:1500}); }
+		});  
+	},
+	'Au_q': function() {
+		Swal.fire({text:'找回密码请联系管理员 QQ：3324219893',type:'success'});
+	},	
+	'Out': function() {
+		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 5000,
+			success: function($r) {
+				Swal.fire({
+					text: '您已退出登录！',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1000
+				});
+				location.href = '/';
+			}
+		});
+	},
+	'Login': function Login() {
+		Swal.fire({
+			title: '用户登录 - XiangKanJu.Cc',
+			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" href="/signup/reg.php">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			showCloseButton: true,
+			showCancelButton: false,
+			focusConfirm: false,
+			confirmButtonText: '登录'
+		}).then(function(result) {
+			if (result.value) {
+				swal.showLoading();
+				name = $("#u_name").val();
+				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,
+					success: function ($r,$name) {
+						if ($r.indexOf('您输入') > -1) {
+							Swal.fire({
+								text: '账户或密码错误，请重试!',
+								type: 'warning',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						} else if ($r.indexOf('登录成功')) {
+							Swal.fire({
+								title: '想看剧欢迎您！登录成功',
+								type: 'success',
+								showConfirmButton: true,
+								timer: 1500
+							});
+							location.href = location.href;
+							
+						} else {
+							Swal.fire({
+								text: '未知错误!',
+								type: 'warning',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						}
+					}
+				});
+			}
+		});
 	}	
 };
-var modal=document.getElementById('login');window.onclick=function(event){if(event.target==modal){modal.style.display="none";}}
-setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新缓存成功')}})}
-document.writeln("<div id=\"login\" class=\"modal\"><form class=\"main-box\" id=\"loginform_web\" method=\"post\" action=\"/?m=user-check.html\"><blockquote>用户登陆 <button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\'document.getElementById(\"login\").style.display=\"none\"\'>&times;</button></blockquote><div class=\"input-group\"><span class=\"input-group-addon\">用户</span> <input type=\"text\" class=\"form-control\" id=\"u_name\" name=\"u_name\" placeholder=\"请输入用户名\"></div><br><div class=\"input-group\"><span class=\"input-group-addon\">密码</span> <input type=\"password\" class=\"form-control\" id=\"u_password\" name=\"u_password\" placeholder=\"6-16个字符\"></div><br><button type=\"submit\" class=\"btn btn-primary btn-block\">确认登录</button> <a style=\"font-size:15px;color:red\" id=\"nav\" class=\"extra\" rel=\"nofollow\" href=\"https://www.xiangkanju.cc/signup/reg.php\">没有账号？注册</a>&nbsp;&nbsp;<a style=\"font-size:15px\" class=\"extra\" href=\"javascript:alert(\'找回密码请联系管理员 QQ：3324219893\');\">找回密码？</a></form></div>");
 
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('q.6=w(a,b,c){5(8 b!=\'H\'){c=c||{};5(b===s){b=\'\';c.3=-1}2 d=\'\';5(c.3&&(8 c.3==\'u\'||c.3.o)){2 e;5(8 c.3==\'u\'){e=A D();e.E(e.F()+(c.3*4*r*r*K))}t{e=c.3}d=\'; 3=\'+e.o()}2 f=c.9?\'; 9=\'+c.9:\'\';2 g=c.m?\'; m=\'+c.m:\'\';2 h=c.p?\'; p\':\'\';7.6=[a,\'=\',x(b),d,f,g,h].y(\'\')}t{2 j=s;5(7.6&&7.6!=\'\'){2 k=7.6.B(\';\');C(2 i=0;i<k.n;i++){2 l=q.G(k[i]);5(l.v(0,a.n+1)==(a+\'=\')){j=I(l.v(a.n+1));J}}}z j}};',47,47,'||var|expires||if|cookie|document|typeof|path|||||||||||||domain|length|toUTCString|secure|jQuery|60|null|else|number|substring|function|encodeURIComponent|join|return|new|split|for|Date|setTime|getTime|trim|undefined|decodeURIComponent|break|1000'.split('|'),0,{}))
+setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新缓存成功')}})}
+
 function uaredirect(f){try{if(document.getElementById("bdmark")!=null){return}var b=false;if(arguments[1]){var e=window.location.host;var a=window.location.href;if(isSubdomain(arguments[1],e)==1){f=f+"/#v/"+a;b=true}else{if(isSubdomain(arguments[1],e)==2){f=f+"/#v/"+a;b=true}else{f=a;b=false}}}else{b=true}if(b){var c=window.location.hash;if(!c.match("mobile")){if(!(navigator.userAgent.match(/(iPhone|iPod|ipad|Android|mobile|blackberry|webos|incognito|webmate|bada|nokia|lg|ucweb|ios|skyfire)/i))){location.replace(f)}}}}catch(d){}}function isSubdomain(c,d){this.getdomain=function(f){var e=f.indexOf("://");if(e>0){var h=f.substr(e+3)}else{var h=f}var g=/^www\./;if(g.test(h)){h=h.substr(4)}return h};if(c==d){return 1}else{var c=this.getdomain(c);var b=this.getdomain(d);if(c==b){return 1}else{c=c.replace(".","\\.");var a=new RegExp("\\."+c+"$");if(b.match(a)){return 2}else{return 0}}}};
 function changeorder(e){$("#list .Drama li").each(function(){$(this).prependTo($(this).parent())});$(e).text($(e).text()=="正序↑"?"倒序↓":"正序↑");return false}function serchAction(){var keyword=$("#searInput").val();if(keyword!=""){location.href="vod-search-wd-"+keyword+"-by-time.html"}else{alert("请输入关键词")}}function Stype(){$(".classBox .classopen ul").css("display","none");$(".classBox .OperaBar li").removeClass("cur");$("#Clicktype").css("display","block");$("#yc a").css("display","block");$("#type").addClass("cur")}function juqing(){$(".classBox .classopen ul").css("display","none");$(".classBox .OperaBar li").removeClass("cur");$("#Clickjuqing").css("display","block");$("#yc a").css("display","block");$("#juqing").addClass("cur")}function year(){$(".classBox .classopen ul").css("display","none");$(".classBox .OperaBar li").removeClass("cur");$("#Clickyear").css("display","block");$("#yc a").css("display","block");$("#year").addClass("cur")}function area(){$(".classBox .classopen ul").css("display","none");$(".classBox .OperaBar li").removeClass("cur");$("#Clickarea").css("display","block");$("#yc a").css("display","block");$("#area").addClass("cur")}function yc(){$(".classBox .classopen ul").css("display","none");$("#yc a").css("display","none");$(".classBox .OperaBar li").removeClass("cur")}
 //全局
