@@ -1,4 +1,4 @@
-var MAC = {
+﻿var MAC = {
 	'Hits': function(tab, id) {
 		$.get(SitePath + "inc/ajax.php?ac=hits&tab=" + tab + "&id=" + id, function(r) {$('#hits').html(r)})
 	},	
@@ -20,16 +20,16 @@ var MAC = {
 					text: '您已退出登录！',
 					type: 'success',
 					showConfirmButton: false,
-					timer: 1500
+					timer: 1000
 				});
-				setTimeout(function() {location.href = '/';}, 1500);
+				location.href = '/';
 			}
 		});
 	},
 	'Login': function Login() {
 		Swal.fire({
 			title: '用户登录 - XiangKanJu.Cc',
-			type: 'info',
+			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" href="/signup/reg.php">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
 			showCloseButton: true,
 			showCancelButton: false,
@@ -40,14 +40,6 @@ var MAC = {
 				swal.showLoading();
 				name = $("#u_name").val();
 				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,
-					error: function() {
-						Swal.fire({
-							text: '登录失败!',
-							type: 'warning',
-							showConfirmButton: false,
-							timer: 1500
-						});
-					},
 					success: function ($r,$name) {
 						if ($r.indexOf('您输入') > -1) {
 							Swal.fire({
@@ -63,9 +55,8 @@ var MAC = {
 								showConfirmButton: true,
 								timer: 1500
 							});
-							setTimeout(function() {
-								location.href = location.href;
-							}, 1500);
+							location.href = location.href;
+							
 						} else {
 							Swal.fire({
 								text: '未知错误!',
