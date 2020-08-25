@@ -28,7 +28,8 @@
 	},
 	'Regup': function () {
  		swal.mixin({
- 			confirmButtonText: '下一步',
+ 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			confirmButtonText: '下一步',
  			progressSteps: ['1', '2', '3','4', '5', '6','7']
  		}).queue([{
  			input: 'text',
@@ -95,7 +96,7 @@
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您购买的邀请码</a></strong>',
+			html: '<strong><a>请输入您的邀请码</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
  			preConfirm: function(passwd) {
  				if (passwd.length < 6) {
  					swal.showValidationMessage('密码请输入6位以上');
