@@ -38,17 +38,17 @@
 		}).then(function(result) {
 			if (result.value) {
 				swal.showLoading();
-				name = $("#u_name").val();
-				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,
-					error: function(){
-							Swal.fire({
-								title: '想看剧欢迎您！可能登录成功 请刷新页面',
-								type: 'success',
-								showConfirmButton: true,
-								timer: 1500
-							});location.href = location.href;
-					},					
-					success: function ($r,$name) {
+				var reg = RegExp('/get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
+				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg)){
+					Swal.fire({
+						html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
+						type: 'warning',
+						showConfirmButton: true,
+					});
+					return false;
+				};
+				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,					
+					success: function ($r) {
 						if ($r.indexOf('您输入') > -1) {
 							Swal.fire({
 								text: '账户或密码错误，请重试!',
