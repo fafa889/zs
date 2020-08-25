@@ -14,23 +14,142 @@ var MAC = {
 		Swal.fire({text:'找回密码请联系管理员 QQ：3324219893',type:'success'});
 	},	
 	'Out': function() {
-		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 5000,
+		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 1000,
 			success: function($r) {
 				Swal.fire({
 					text: '您已退出登录！',
 					type: 'success',
-					showConfirmButton: false,
-					timer: 1000
+					showConfirmButton: true,
+					timer: 700
 				});
 				location.href = location.href;
 			}
 		});
 	},
-	'Login': function Login() {
+	'Regup': function () {
+ 		swal.mixin({
+ 			confirmButtonText: '下一步',
+ 			progressSteps: ['1', '2', '3','4', '5', '6','7']
+ 		}).queue([{
+ 			input: 'text',
+ 			title: '账号注册',
+ 			html: '<strong><a>请输入要注册的用户名</a></strong>',
+			preConfirm: function(s) {
+			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_name-s-'+s,
+				    success: function ($r) {
+						if ($r.indexOf('false') > -1) {
+							swal.showValidationMessage('账号已存在 刷新页面重试');
+							return false;
+						}
+					}
+				})
+			
+			}
+ 		}, {
+ 			input: 'password',
+ 			title: '账号注册',
+			html: '<strong><a>请输入密码(设置的密码要牢记哦)</a></strong>',
+ 			preConfirm: function(passwd) {
+ 				if (passwd.length < 6) {
+ 					swal.showValidationMessage('密码请输入6位以上');
+ 					return false;
+ 				}
+ 			}
+ 		}, {
+ 			input: 'password',
+ 			title: '账号注册',
+ 			html: '<strong><a>重复上一步的密码</a></strong>',
+ 		}, {
+ 			input: 'email',
+ 			title: '账号注册',
+			html: '<strong><a>请输入您常用的邮箱地址</a></strong>',
+ 		}, {
+ 			input: 'text',
+ 			title: '账号注册',
+			html: '<strong><a>请输入您常用的手机号</a></strong>',
+			preConfirm: function(s) {
+			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_phone-s-'+s,
+				    success: function ($r) {
+						if ($r.indexOf('false') > -1) {
+							swal.showValidationMessage('手机号已存在 刷新页面重试');
+							return false;
+						}
+					}
+				});
+			
+			}
+ 		}, {
+ 			input: 'text',
+ 			title: '账号注册',
+			html: '<strong><a>请输入您常用的QQ号</a></strong>',
+			preConfirm: function(s) {
+			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_qq-s-'+s,
+				    success: function ($r) {
+						if ($r.indexOf('false') > -1) {
+							swal.showValidationMessage('QQ号已存在 刷新页面重试');
+							return false;
+						}
+					}
+				});
+			}
+ 		}, {
+ 			input: 'text',
+ 			title: '账号注册',
+			html: '<strong><a>请输入您购买的邀请码</a></strong>',
+ 			preConfirm: function(passwd) {
+ 				if (passwd.length < 6) {
+ 					swal.showValidationMessage('密码请输入6位以上');
+ 					return false;
+ 				}
+ 			}
+ 		}]).then(function(result) {
+ 			if (result.value) {
+ 				var reginfo = JSON.stringify(result.value);
+				console.log(result.value[1]);
+ 				swal.showLoading();
+				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] +'&u_phone='+ result.value[4] +'&u_qq='+ result.value[5] +'&user_code='+ result.value[6],timeout: 1000,
+					success: function ($r) {
+					console.log($r);
+						if ($r.indexOf('邀请码') > -1) {
+							Swal.fire({
+								text: '您输入的邀请码不正确请检查!',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if ($r.indexOf('手机号') > -1) {
+							Swal.fire({
+								text: '您输入的手机号不正确请检查!',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if ($r.indexOf('登录成功')) {
+							Swal.fire({
+								html: '<b>注册成功 感谢您的支持！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
+								type: 'success',
+								confirmButtonText: '立即登录',
+								showConfirmButton: true,
+							}).then((result) => {
+						        if (result.value) {
+						            MAC.Login();
+						        }
+							})	
+						} else {
+							Swal.fire({
+								text: '未知错误!联系管理员QQ 3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						}
+					}
+				});	
+ 			}
+ 		});
+	},
+	'Login': function () {
 		Swal.fire({
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" href="/signup/reg.php">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
@@ -47,14 +166,14 @@ var MAC = {
 					});
 					return false;
 				};
-				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,					
+				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,				
 					success: function ($r) {
 						if ($r.indexOf('您输入') > -1) {
 							Swal.fire({
 								text: '账户或密码错误，请重试!',
 								type: 'warning',
-								showConfirmButton: false,
-								timer: 1500
+								showConfirmButton: true,
+								timer: 3000
 							})
 						} else if ($r.indexOf('登录成功')) {
 							Swal.fire({
@@ -69,8 +188,7 @@ var MAC = {
 							Swal.fire({
 								text: '未知错误!',
 								type: 'warning',
-								showConfirmButton: false,
-								timer: 1500
+								showConfirmButton: true,
 							})
 						}
 					}
