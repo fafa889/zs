@@ -29,6 +29,10 @@
 	'Regup': function () {
  		swal.mixin({
  			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			showCloseButton: true,
+			showCancelButton: false,
+			focusConfirm: false,
+			allowOutsideClick: false,			
 			confirmButtonText: '下一步',
  			progressSteps: ['1', '2', '3','4', '5', '6','7']
  		}).queue([{
