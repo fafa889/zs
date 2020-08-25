@@ -22,7 +22,7 @@ var MAC = {
 					showConfirmButton: false,
 					timer: 1000
 				});
-				location.href = '/';
+				location.href = location.href;
 			}
 		});
 	},
@@ -40,6 +40,14 @@ var MAC = {
 				swal.showLoading();
 				name = $("#u_name").val();
 				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,
+					error: function(){
+							Swal.fire({
+								title: '想看剧欢迎您！可能登录成功 请刷新页面',
+								type: 'success',
+								showConfirmButton: true,
+								timer: 1500
+							});location.href = location.href;
+					},					
 					success: function ($r,$name) {
 						if ($r.indexOf('您输入') > -1) {
 							Swal.fire({
