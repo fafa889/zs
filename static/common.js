@@ -41,7 +41,7 @@ var MAC = {
  			input: 'text',
  			title: '账号注册',
  			html: '<strong><a>请输入要注册的用户名</a></strong>',
-			preConfirm: function(name) {
+            preConfirm: (name) => {
 			    if(name.match(reg)){
 					swal.showValidationMessage('账号包含特殊字符 正确示例[abc123]字母加数字');
 					return false
@@ -49,13 +49,14 @@ var MAC = {
 				if (!name.match(ifup)) {
 					swal.showValidationMessage('账号请大于6小于15位 例:abc123 abcd_1234<br><strong><a>用户名必须字母开头加数字组合 看左边示例</a></strong>');
 					return false				
-				};
-			    $.get(SitePath + '?m=user-regcheck-t-u_name-s-'+name, function(data){
-				    if (data.indexOf('false') > -1) {
-						swal.showValidationMessage('账号已存在 刷新页面重试');
-						return false;					
-					}
-				});
+				};                
+				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_name-s-${name}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('用户名已存在 请重新输入')
+					    }
+					})    
 			}
  		}, {
  			input: 'password',
@@ -79,35 +80,52 @@ var MAC = {
  			input: 'email',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的邮箱地址</a></strong>',
- 			preConfirm: function(email) {
+            preConfirm: (email) => {                
 			    if(email.match(reg)){
 					swal.showValidationMessage('邮箱地址包含特殊字符 请使用QQ邮箱重试');
 					return false
-				};			
- 			}			
+				};				
+				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_email-s-${email}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('邮箱地址已存在 请重新输入')
+					    }
+					})    
+			}			
  		}, {
  			input: 'text',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的手机号</a></strong>',
-			preConfirm: function(phone) {
+            preConfirm: (phone) => {                
 				if (!phone.match(/^1\d{10}$/)) {
 					swal.showValidationMessage('请确认手机号是否正确！');
 					return false				
-				};
-			}
+				};			
+				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_phone-s-${phone}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('手机号已存在 请重新输入')
+					    }
+					})    
+			}			
  		}, {
  			input: 'text',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的QQ号</a></strong>',
-			preConfirm: function(qq) {
-			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_qq-s-'+qq,
-				    success: function ($r) {
-						if ($r.indexOf('false') > -1) {
-							swal.showValidationMessage('QQ号已存在 刷新页面重试');
-							return false;
-						}
-					}
-				});
+            preConfirm: (qq) => {                
+			    if(qq.match(reg)){
+					swal.showValidationMessage('QQ地址包含特殊字符 请重新输入');
+					return false
+				};				
+				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_qq-s-${qq}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('QQ号已存在 请重新输入')
+					    }
+					})    
 			}
  		}, {
  			input: 'text',
