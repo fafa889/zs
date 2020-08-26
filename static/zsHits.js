@@ -27,38 +27,49 @@
 		});
 	},
 	'Regup': function () {
- 		swal.mixin({
- 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+ 		var reg = RegExp('/get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
+		var ifup = /^[a-zA-Z]\w{5,17}$/;		
+		swal.mixin({
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
-			allowOutsideClick: false,			
+			allowOutsideClick: false,
+ 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			confirmButtonText: '下一步',
  			progressSteps: ['1', '2', '3','4', '5', '6','7']
  		}).queue([{
  			input: 'text',
  			title: '账号注册',
  			html: '<strong><a>请输入要注册的用户名</a></strong>',
-			preConfirm: function(s) {
-			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_name-s-'+s,
-				    success: function ($r) {
-						if ($r.indexOf('false') > -1) {
-							swal.showValidationMessage('账号已存在 刷新页面重试');
-							return false;
-						}
+			preConfirm: function(name) {
+			    if(name.match(reg)){
+					swal.showValidationMessage('账号包含特殊字符 正确示例[abc123]字母加数字');
+					return false
+				};
+				if (!name.match(ifup)) {
+					swal.showValidationMessage('账号请大于6小于15位 例:abc123 abcd_1234<br><strong><a>用户名必须字母开头加数字组合 看左边示例</a></strong>');
+					return false				
+				};
+			    $.get(SitePath + '?m=user-regcheck-t-u_name-s-'+name, function(data){
+				    if (data.indexOf('false') > -1) {
+						swal.showValidationMessage('账号已存在 刷新页面重试');
+						return false;					
 					}
-				})
-			
+				});
 			}
  		}, {
  			input: 'password',
  			title: '账号注册',
 			html: '<strong><a>请输入密码(设置的密码要牢记哦)</a></strong>',
  			preConfirm: function(passwd) {
- 				if (passwd.length < 6) {
- 					swal.showValidationMessage('密码请输入6位以上');
- 					return false;
- 				}
+			    if(passwd.match(reg)){
+					swal.showValidationMessage('密码请大于6小于15位 例:qwe123 wsxc_1234');
+					return false
+				};
+				if (!passwd.match(ifup)) {
+					swal.showValidationMessage('密码请大于6小于15位 例:qwe123 wsxc_1234<br><strong><a>用户密码必须字母开头加数字组合 看左边示例</a></strong>');
+					return false				
+				};
  			}
  		}, {
  			input: 'password',
@@ -68,27 +79,28 @@
  			input: 'email',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的邮箱地址</a></strong>',
+ 			preConfirm: function(email) {
+			    if(email.match(reg)){
+					swal.showValidationMessage('邮箱地址包含特殊字符 请使用QQ邮箱重试');
+					return false
+				};			
+ 			}			
  		}, {
  			input: 'text',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的手机号</a></strong>',
-			preConfirm: function(s) {
-			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_phone-s-'+s,
-				    success: function ($r) {
-						if ($r.indexOf('false') > -1) {
-							swal.showValidationMessage('手机号已存在 刷新页面重试');
-							return false;
-						}
-					}
-				});
-			
+			preConfirm: function(phone) {
+				if (!phone.match(/^1\d{10}$/)) {
+					swal.showValidationMessage('请确认手机号是否正确！');
+					return false				
+				};
 			}
  		}, {
  			input: 'text',
  			title: '账号注册',
 			html: '<strong><a>请输入您常用的QQ号</a></strong>',
-			preConfirm: function(s) {
-			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_qq-s-'+s,
+			preConfirm: function(qq) {
+			    $.ajax({type: 'get',url: SitePath + '?m=user-regcheck-t-u_qq-s-'+qq,
 				    success: function ($r) {
 						if ($r.indexOf('false') > -1) {
 							swal.showValidationMessage('QQ号已存在 刷新页面重试');
@@ -101,9 +113,9 @@
  			input: 'text',
  			title: '账号注册',
 			html: '<strong><a>请输入您的邀请码</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
- 			preConfirm: function(passwd) {
- 				if (passwd.length < 6) {
- 					swal.showValidationMessage('密码请输入6位以上');
+ 			preConfirm: function(u_code) {
+ 				if (u_code.length < 15) {
+ 					swal.showValidationMessage('邀请码有误 请检查！');
  					return false;
  				}
  			}
