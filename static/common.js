@@ -27,7 +27,7 @@ var MAC = {
 		});
 	},
 	'Regup': function () {
- 		var reg = RegExp('/get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
+ 		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 		var ifup = /^[a-zA-Z]\w{5,17}$/;		
 		swal.mixin({
 			position:'top',
@@ -134,7 +134,7 @@ var MAC = {
 			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
             preConfirm: (code) => {                
 			    if(code.match(reg)){
-					swal.showValidationMessage('QQ地址包含特殊字符 请重新输入');
+					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
 					return false
 				};				
 				return fetch(`/?m=user-regcheck-t-user_code-s-${code}`)
@@ -148,11 +148,9 @@ var MAC = {
  		}]).then(function(result) {
  			if (result.value) {
  				var reginfo = JSON.stringify(result.value);
-				console.log(result.value[1]);
  				swal.showLoading();
-				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] +'&u_phone='+ result.value[4] +'&u_qq='+ result.value[5] +'&user_code='+ result.value[6],timeout: 1000,
+				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] +'&u_phone='+ result.value[4] +'&u_qq='+ result.value[5] +'&user_code='+ result.value[6],timeout: 3000,
 					success: function (data) {
-					console.log(data);
 						if (data.indexOf('不存在') > -1) {
 							Swal.fire({
 								text: '您输入的邀请码不存在请检查!',
@@ -179,15 +177,17 @@ var MAC = {
 							})
 						} else if (data.indexOf('登录成功')) {
 							Swal.fire({
+								imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 								html: '<b>注册成功 感谢您的支持！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
 								type: 'success',
+								allowOutsideClick: false,
 								confirmButtonText: '立即登录',
 								showConfirmButton: true,
 							}).then((result) => {
 						        if (result.value) {
 						            MAC.Login();
 						        }
-							})	
+							})
 						} else {
 							Swal.fire({
 								text: '未知错误!联系管理员QQ 3324219893',
@@ -202,12 +202,12 @@ var MAC = {
 	},
 	'Login': function () {
 		Swal.fire({
+			position:'top',
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
 			showCloseButton: true,
 			showCancelButton: false,
-			position:'top',
 			focusConfirm: false,
 			confirmButtonText: '登录'
 		}).then(function(result) {
@@ -251,7 +251,7 @@ var MAC = {
 				});
 			}
 		});
-	}	
+	}
 };
 
 setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新缓存成功')}})}
