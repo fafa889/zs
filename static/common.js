@@ -30,6 +30,7 @@ var MAC = {
  		var reg = RegExp('/get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 		var ifup = /^[a-zA-Z]\w{5,17}$/;		
 		swal.mixin({
+			position:'top',
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
@@ -185,6 +186,7 @@ var MAC = {
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			position:'top',
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
