@@ -11,7 +11,27 @@ var MAC = {
 		});  
 	},
 	'Au_q': function() {
-		Swal.fire({text:'找回密码请联系管理员 QQ：3324219893',type:'success'});
+			Swal.fire({
+				position:'top',
+				imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+				title: '找回密码须知',
+				html: '<b style="color:#000">1.需要提供正确的用户名、邮箱、QQ等三个必要条件<br><br>若不能提供请联系管理员人工找回密码</b>',
+				background: '#fff',
+				allowOutsideClick: false,
+				reverseButtons: true,
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				animation: true,
+				confirmButtonText: '在线找回',
+				cancelButtonText: '人工找回',
+			}).then((result) => {
+				if (result.value) {
+					swal(MAC.Forgot(), )
+				} else if (result.dismiss === Swal.DismissReason.cancel) {
+					swal.fire({title:'请添加管理员QQ',html:'管理员QQ 3324219893'})
+				}
+			})
 	},	
 	'Out': function() {
 		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 1000,
@@ -25,6 +45,133 @@ var MAC = {
 				location.href = location.href;
 			}
 		});
+	},
+	'Forgot': function() {
+ 		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
+		var ifup = /^[a-zA-Z]\w{5,17}$/;		
+		swal.mixin({
+			position:'top',
+			showCloseButton: true,
+			showCancelButton: false,
+			focusConfirm: false,
+			allowOutsideClick: false,
+ 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			confirmButtonText: '下一步',
+ 			progressSteps: ['1', '2', '3','4']
+ 		}).queue([{
+ 			input: 'text',
+ 			title: '密码找回',
+ 			html: '<strong><a>请输入要找回的用户名</a></strong>',
+            preConfirm: (name) => {
+			    if(name.match(reg)){
+					swal.showValidationMessage('账号包含特殊字符 正确示例[abc123]字母加数字');
+					return false
+				};             
+				return fetch(`/?m=user-regcheck-t-u_name-s-${name}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == true){
+							swal.showValidationMessage('未查询到您的账号 联系管理员QQ 3324219893')
+					    }
+					})    
+			}
+ 		}, {
+ 			input: 'password',
+ 			title: '密码找回',
+			html: '<strong><a>请输入新密码(设置的密码要牢记哦)</a></strong>',
+ 			preConfirm: function(passwd) {
+			    if(passwd.match(reg)){
+					swal.showValidationMessage('密码请大于6小于15位 例:qwe123 wsxc_1234');
+					return false
+				};
+				if (!passwd.match(ifup)) {
+					swal.showValidationMessage('密码请大于6小于15位 例:qwe123 wsxc_1234<br><strong><a>用户密码必须字母开头加数字组合 看左边示例</a></strong>');
+					return false				
+				};
+ 			}
+ 		}, {
+ 			input: 'email',
+ 			title: '密码找回',
+			html: '<strong><a>请输入您注册时的邮箱地址</a></strong>',
+            preConfirm: (email) => {                
+			    if(email.match(reg)){
+					swal.showValidationMessage('邮箱地址包含特殊字符 请使用QQ邮箱重试');
+					return false
+				};				
+				return fetch(`/?m=user-regcheck-t-u_email-s-${email}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == true){
+							swal.showValidationMessage('未查询到您的邮箱 联系管理员QQ 3324219893')
+					    }
+					})    
+			}			
+ 		}, {
+ 			input: 'text',
+ 			title: '密码找回',
+			html: '<strong><a>请输入您注册时的QQ号</a></strong>',
+            preConfirm: (qq) => {                
+			    if(qq.match(reg)){
+					swal.showValidationMessage('QQ地址包含特殊字符 请重新输入');
+					return false
+				};				
+				return fetch(`/?m=user-regcheck-t-u_qq-s-${qq}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == true){
+							swal.showValidationMessage('未查询到您的QQ号 联系管理员QQ 3324219893')
+					    }
+					})    
+			}
+ 		}]).then(function(result) {
+ 			if (result.value) {
+ 				var reginfo = JSON.stringify(result.value);
+ 				swal.showLoading();
+				$.ajax({type: 'post',url: SitePath + '?m=user-forgot',data: 'flag=center&u_name='+ result.value[0] +'&u_password='+ result.value[1] +'&u_email='+ result.value[2] +'&u_qq='+ result.value[3] +'&u_phone='+ result.value[4],timeout: 3000,
+					success: function (data) {
+						if (data.indexOf('表单信息') > -1) {
+							Swal.fire({
+								text: '表单信息不完整,请检查!',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('系统繁忙') > -1) {
+							Swal.fire({
+								text: '系统繁忙，请稍候重试',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('重置密码失败') > -1) {
+							Swal.fire({
+								text: '重置密码失败! 联系管理员QQ 3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('重置密码成功')) {
+							Swal.fire({
+								imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+								html: '<b>重置密码成功 请牢记新密码！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
+								type: 'success',
+								allowOutsideClick: false,
+								confirmButtonText: '立即登录',
+								showConfirmButton: true,
+								//timer: 1500
+							}).then((result) => {
+						        if (result.value) {
+						            MAC.Login();
+						        }
+							})	
+						} else {
+							Swal.fire({
+								text: '未知错误!联系管理员QQ 3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						}
+					}
+				});	
+ 			}
+ 		});
 	},
 	'Regup': function () {
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
@@ -183,11 +330,12 @@ var MAC = {
 								allowOutsideClick: false,
 								confirmButtonText: '立即登录',
 								showConfirmButton: true,
+								//timer: 1500
 							}).then((result) => {
 						        if (result.value) {
 						            MAC.Login();
 						        }
-							})
+							})	
 						} else {
 							Swal.fire({
 								text: '未知错误!联系管理员QQ 3324219893',
@@ -205,7 +353,7 @@ var MAC = {
 			position:'top',
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
@@ -213,7 +361,7 @@ var MAC = {
 		}).then(function(result) {
 			if (result.value) {
 				swal.showLoading();
-				var reg = RegExp('/get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
+				var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg)){
 					Swal.fire({
 						html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
@@ -222,9 +370,15 @@ var MAC = {
 					});
 					return false;
 				};
-				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,				
+				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 5000,				
 					success: function (data) {
-						if (data.indexOf('您输入') > -1) {
+						if (data.indexOf('包含特殊字符') > -1) {
+							Swal.fire({
+								html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('您输入') > -1) {
 							Swal.fire({
 								text: '账户或密码错误，请重试!',
 								type: 'warning',
