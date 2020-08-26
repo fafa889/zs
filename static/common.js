@@ -50,7 +50,7 @@ var MAC = {
 					swal.showValidationMessage('账号请大于6小于15位 例:abc123 abcd_1234<br><strong><a>用户名必须字母开头加数字组合 看左边示例</a></strong>');
 					return false				
 				};                
-				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_name-s-${name}`)
+				return fetch(`/?m=user-regcheck-t-u_name-s-${name}`)
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
@@ -85,7 +85,7 @@ var MAC = {
 					swal.showValidationMessage('邮箱地址包含特殊字符 请使用QQ邮箱重试');
 					return false
 				};				
-				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_email-s-${email}`)
+				return fetch(`/?m=user-regcheck-t-u_email-s-${email}`)
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
@@ -102,7 +102,7 @@ var MAC = {
 					swal.showValidationMessage('请确认手机号是否正确！');
 					return false				
 				};			
-				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_phone-s-${phone}`)
+				return fetch(`/?m=user-regcheck-t-u_phone-s-${phone}`)
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
@@ -119,7 +119,7 @@ var MAC = {
 					swal.showValidationMessage('QQ地址包含特殊字符 请重新输入');
 					return false
 				};				
-				return fetch(`//127.0.0.1/?m=user-regcheck-t-u_qq-s-${qq}`)
+				return fetch(`/?m=user-regcheck-t-u_qq-s-${qq}`)
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
