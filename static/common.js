@@ -15,7 +15,7 @@ var MAC = {
 	},	
 	'Out': function() {
 		$.ajax({type: 'get',url: SitePath + '?m=user-logout',timeout: 1000,
-			success: function($r) {
+			success: function() {
 				Swal.fire({
 					text: '您已退出登录！',
 					type: 'success',
@@ -109,7 +109,7 @@ var MAC = {
 					    if(data.res == false){
 							swal.showValidationMessage('手机号已存在 请重新输入')
 					    }
-					})    
+					})
 			}			
  		}, {
  			input: 'text',
@@ -131,34 +131,53 @@ var MAC = {
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您的邀请码</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
- 			preConfirm: function(u_code) {
- 				if (u_code.length < 15) {
- 					swal.showValidationMessage('邀请码有误 请检查！');
- 					return false;
- 				}
- 			}
+			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
+            preConfirm: (code) => {                
+			    if(code.match(reg)){
+					swal.showValidationMessage('QQ地址包含特殊字符 请重新输入');
+					return false
+				};				
+				return fetch(`/?m=user-regcheck-t-user_code-s-${code}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('<strong><a>邀请码已使用或不存在 管理员QQ 3324219893</a></strong>')
+					    }
+					})    
+			}
  		}]).then(function(result) {
  			if (result.value) {
  				var reginfo = JSON.stringify(result.value);
 				console.log(result.value[1]);
  				swal.showLoading();
 				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] +'&u_phone='+ result.value[4] +'&u_qq='+ result.value[5] +'&user_code='+ result.value[6],timeout: 1000,
-					success: function ($r) {
-					console.log($r);
-						if ($r.indexOf('邀请码') > -1) {
+					success: function (data) {
+					console.log(data);
+						if (data.indexOf('不存在') > -1) {
 							Swal.fire({
-								text: '您输入的邀请码不正确请检查!',
+								text: '您输入的邀请码不存在请检查!',
 								type: 'warning',
 								showConfirmButton: true,
 							})
-						} else if ($r.indexOf('手机号') > -1) {
+						} else if (data.indexOf('已使用') > -1) {
+							Swal.fire({
+								text: '邀请码已使用! 联系管理员QQ 3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('注册失败') > -1) {
+							Swal.fire({
+								text: '注册失败! 联系管理员QQ 3324219893',
+								type: 'warning',
+								showConfirmButton: true,
+							})
+						} else if (data.indexOf('手机号') > -1) {
 							Swal.fire({
 								text: '您输入的手机号不正确请检查!',
 								type: 'warning',
 								showConfirmButton: true,
 							})
-						} else if ($r.indexOf('登录成功')) {
+						} else if (data.indexOf('登录成功')) {
 							Swal.fire({
 								html: '<b>注册成功 感谢您的支持！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
 								type: 'success',
@@ -186,9 +205,9 @@ var MAC = {
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a><a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
-			position:'top',
 			showCloseButton: true,
 			showCancelButton: false,
+			position:'top',
 			focusConfirm: false,
 			confirmButtonText: '登录'
 		}).then(function(result) {
@@ -204,15 +223,15 @@ var MAC = {
 					return false;
 				};
 				$.ajax({type: 'post',url: SitePath + '?m=user-check',data: 'u_name=' + $("#u_name").val() + '&u_password=' + $("#u_password").val(),timeout: 1000,				
-					success: function ($r) {
-						if ($r.indexOf('您输入') > -1) {
+					success: function (data) {
+						if (data.indexOf('您输入') > -1) {
 							Swal.fire({
 								text: '账户或密码错误，请重试!',
 								type: 'warning',
 								showConfirmButton: true,
 								timer: 3000
 							})
-						} else if ($r.indexOf('登录成功')) {
+						} else if (data.indexOf('登录成功')) {
 							Swal.fire({
 								title: '想看剧欢迎您！登录成功',
 								type: 'success',
