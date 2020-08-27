@@ -48,7 +48,7 @@
 	},
 	'Forgot': function() {
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
-		var ifup = /^[a-zA-Z]\w{5,17}$/;		
+		var ifup = /^(?=.*\d+.*)(?=.*[a-z]+.*)[\da-z_]{5,17}$/;
 		swal.mixin({
 			showCloseButton: true,
 			showCancelButton: false,
@@ -183,7 +183,7 @@
 	},
 	'Regup': function () {
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
-		var ifup = /^[a-zA-Z]\w{5,17}$/;		
+		var ifup = /^(?=.*\d+.*)(?=.*[a-z]+.*)[\da-z_]{5,17}$/;
 		swal.mixin({
 			showCloseButton: true,
 			showCancelButton: false,
@@ -193,7 +193,7 @@
 			customClass: {confirmButton: 'btn btn-success btn-block'},			
  			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			confirmButtonText: '下一步',
- 			progressSteps: ['1', '2', '3','4', '5', '6','7'],
+ 			progressSteps: ['1', '2', '3','4', '5', '6'],
 			footer:'<span class="glyphicon glyphicon-tags"> 注册中遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
@@ -254,23 +254,6 @@
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您常用的手机号</a></strong>',
-            preConfirm: (phone) => {                
-				if (!phone.match(/^1\d{10}$/)) {
-					swal.showValidationMessage('请确认手机号是否正确！');
-					return false				
-				};			
-				return fetch(`/?m=user-regcheck-t-u_phone-s-${phone}`)
-                    .then(response => response.json())
-					.then(function(data) {
-					    if(data.res == false){
-							swal.showValidationMessage('手机号已存在 请重新输入')
-					    }
-					})
-			}			
- 		}, {
- 			input: 'text',
- 			title: '账号注册',
 			html: '<strong><a>请输入您常用的QQ号</a></strong>',
             preConfirm: (qq) => {                
 			    if(qq.match(reg)){
@@ -306,7 +289,7 @@
  			if (result.value) {
  				var reginfo = JSON.stringify(result.value);
  				swal.showLoading();
-				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] +'&u_phone='+ result.value[4] +'&u_qq='+ result.value[5] +'&user_code='+ result.value[6],timeout: 3000,
+				$.ajax({type: 'post',url: SitePath + '?m=user-regsave',data: 'flag=center&u_name='+ result.value[0] +'&u_password1='+ result.value[1] +'&u_password2='+ result.value[2] +'&u_email='+ result.value[3] + '&u_qq='+ result.value[4] +'&user_code='+ result.value[5],timeout: 3000,
 					success: function (data) {
 						if (data.indexOf('不存在') > -1) {
 							Swal.fire({
