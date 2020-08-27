@@ -27,7 +27,7 @@
 				footer:'<span class="glyphicon glyphicon-tags"> 遇到问题请联系管理员 QQ；3324219893</span>'
 			}).then((result) => {
 				if (result.value) {
-					swal(MAC.Forgot(), )
+					MAC.Forgot()
 				} else if (result.dismiss === Swal.DismissReason.cancel) {
 					swal.fire({title:'请添加管理员QQ',html:'管理员QQ 3324219893'})
 				}
