@@ -75,7 +75,7 @@ var MAC = {
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
-						
+							console.log('true')
 					    } else {
 						    swal.showValidationMessage('未查询到您的账号')
 						}
@@ -108,7 +108,7 @@ var MAC = {
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
-						
+							console.log('true')
 					    } else {
 						    swal.showValidationMessage('未查询到您的邮箱')
 						}						
@@ -127,7 +127,7 @@ var MAC = {
                     .then(response => response.json())
 					.then(function(data) {
 					    if(data.res == false){
-						
+							console.log('true')
 					    } else {
 						    swal.showValidationMessage('未查询到您的QQ号')
 						}
