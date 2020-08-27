@@ -72,9 +72,11 @@
 				return fetch(`/?m=user-regcheck-t-u_name-s-${name}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的账号 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的账号')
+						}
 					})    
 			}
  		}, {
@@ -103,9 +105,11 @@
 				return fetch(`/?m=user-regcheck-t-u_email-s-${email}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的邮箱 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的邮箱')
+						}						
 					})    
 			}			
  		}, {
@@ -120,9 +124,11 @@
 				return fetch(`/?m=user-regcheck-t-u_qq-s-${qq}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的QQ号 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的QQ号')
+						}
 					})    
 			}
  		}]).then(function(result) {
@@ -145,14 +151,14 @@
 							})
 						} else if (data.indexOf('重置密码失败') > -1) {
 							Swal.fire({
-								text: '重置密码失败! 联系管理员QQ 3324219893',
+								text: '找回密码失败! 联系管理员QQ 3324219893',
 								type: 'warning',
 								showConfirmButton: true,
 							})
 						} else if (data.indexOf('重置密码成功')) {
 							Swal.fire({
 								imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-								html: '<b>重置密码成功 请牢记新密码！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
+								html: '<b>找回密码成功 请牢记新密码！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
 								type: 'success',
 								allowOutsideClick: false,
 								confirmButtonText: '立即登录',

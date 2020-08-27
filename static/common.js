@@ -74,9 +74,11 @@ var MAC = {
 				return fetch(`/?m=user-regcheck-t-u_name-s-${name}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的账号 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的账号')
+						}
 					})    
 			}
  		}, {
@@ -105,9 +107,11 @@ var MAC = {
 				return fetch(`/?m=user-regcheck-t-u_email-s-${email}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的邮箱 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的邮箱')
+						}						
 					})    
 			}			
  		}, {
@@ -122,9 +126,11 @@ var MAC = {
 				return fetch(`/?m=user-regcheck-t-u_qq-s-${qq}`)
                     .then(response => response.json())
 					.then(function(data) {
-					    if(data.res == true){
-							swal.showValidationMessage('未查询到您的QQ号 联系管理员QQ 3324219893')
-					    }
+					    if(data.res == false){
+						
+					    } else {
+						    swal.showValidationMessage('未查询到您的QQ号')
+						}
 					})    
 			}
  		}]).then(function(result) {
