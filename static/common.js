@@ -25,6 +25,7 @@ var MAC = {
 				animation: true,
 				confirmButtonText: '在线找回',
 				cancelButtonText: '人工找回',
+				footer:'<span class="glyphicon glyphicon-tags"> 遇到问题请联系管理员 QQ；3324219893</span>'
 			}).then((result) => {
 				if (result.value) {
 					swal(MAC.Forgot(), )
@@ -55,9 +56,12 @@ var MAC = {
 			showCancelButton: false,
 			focusConfirm: false,
 			allowOutsideClick: false,
+			buttonsStyling: false,
+			customClass: {confirmButton: 'btn btn-success btn-block'},			
  			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			confirmButtonText: '下一步',
- 			progressSteps: ['1', '2', '3','4']
+ 			progressSteps: ['1', '2', '3','4'],
+			footer:'<span class="glyphicon glyphicon-tags"> 遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
  			title: '密码找回',
@@ -182,9 +186,12 @@ var MAC = {
 			showCancelButton: false,
 			focusConfirm: false,
 			allowOutsideClick: false,
+			buttonsStyling: false,
+			customClass: {confirmButton: 'btn btn-success btn-block'},			
  			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			confirmButtonText: '下一步',
- 			progressSteps: ['1', '2', '3','4', '5', '6','7']
+ 			progressSteps: ['1', '2', '3','4', '5', '6','7'],
+			footer:'<span class="glyphicon glyphicon-tags"> 注册中遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
  			title: '账号注册',
@@ -324,13 +331,14 @@ var MAC = {
 							})
 						} else if (data.indexOf('登录成功')) {
 							Swal.fire({
+								position:'top',
 								imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 								html: '<b>注册成功 感谢您的支持！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
 								type: 'success',
 								allowOutsideClick: false,
 								confirmButtonText: '立即登录',
 								showConfirmButton: true,
-								//timer: 1500
+								footer:'<span class="glyphicon glyphicon-tags"> 感谢您对本站的支持！多多分享给身边的朋友</span>'
 							}).then((result) => {
 						        if (result.value) {
 						            MAC.Login();
@@ -353,11 +361,16 @@ var MAC = {
 			position:'top',
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div><br><a id="nav" class="extra" rel="nofollow" onclick="MAC.Regup();">没有账号？注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="extra" onclick="MAC.Au_q();">找回密码？</a>',
+			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div>',
+			scrollbarPadding: false,
 			showCloseButton: true,
 			showCancelButton: false,
 			focusConfirm: false,
-			confirmButtonText: '登录'
+			buttonsStyling: false,
+			customClass: {confirmButton: 'btn btn-success btn-block'},		
+			confirmButtonText: '登 录',
+			footer:'<a onclick="MAC.Regup();" class="btn btn5"><div class="line_tl"></div><div class="line_tr"></div> <span class="btn-inner">账号注册</span><div class="line_bl"></div><div class="line_br"></div><div class="line_all"></div></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="MAC.Au_q();" class="btn btn5"><div class="line_tl"></div><div class="line_tr"></div> <span class="btn-inner">找回密码</span><div class="line_bl"></div><div class="line_br"></div><div class="line_all"></div></a>'
+		
 		}).then(function(result) {
 			if (result.value) {
 				swal.showLoading();
@@ -382,14 +395,14 @@ var MAC = {
 							Swal.fire({
 								text: '账户或密码错误，请重试!',
 								type: 'warning',
-								showConfirmButton: true,
+								showConfirmButton: false,
 								timer: 3000
 							})
 						} else if (data.indexOf('登录成功')) {
 							Swal.fire({
 								title: '想看剧欢迎您！登录成功',
 								type: 'success',
-								showConfirmButton: true,
+								showConfirmButton: false,
 								timer: 1500
 							});
 							location.href = location.href;
