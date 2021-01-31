@@ -54,7 +54,7 @@
 					}else{
 						html +='<dd class="even">';
 					}
-					console.log(jsondata[$i].link);
+					console.log(jsondata[$i]);
 					html +='<a href="'+jsondata[$i].link+'" class="hx_title" title="'+jsondata[$i].name+'">'+jsondata[$i].name+'</a></dd>';
 				}
 			}else{
