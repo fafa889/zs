@@ -1,6 +1,6 @@
 var MAC = {
 	'History': {
-		'Limit':40,
+		'Limit':20,
 		'Days':3,
 		'Json': '',
 		'Display': true,
@@ -46,9 +46,10 @@ var MAC = {
 				}
 			}
 			html = '<dl class="drop-box history_box" id="history_box" style="display:none;position:absolute;">';
-			html +='<dt>超过30条记录请 -> | <a target="_self" href="javascript:void(0)" onclick="MAC.History.Clear();">清空</a></dt>';
-			if(jsondata.length > 30){
+			html +='<dt>超过20条记录请 -> | <a target="_self" href="javascript:void(0)" onclick="MAC.History.Clear();">清空</a></dt>';
+			if(jsondata.length > 20){
 				MAC.Cookie.Del('mac_history');
+				MAC.History.Clear();
 			}
 			if(jsondata.length > 0){
 				for($i=0; $i<jsondata.length; $i++){
