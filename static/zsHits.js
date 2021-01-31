@@ -1,4 +1,4 @@
-﻿var MAC = {
+var MAC = {
 	'History': {
 		'Limit':40,
 		'Days':3,
@@ -47,6 +47,9 @@
 			}
 			html = '<dl class="drop-box history_box" id="history_box" style="display:none;position:absolute;">';
 			html +='<dt>超过30条记录请 -> | <a target="_self" href="javascript:void(0)" onclick="MAC.History.Clear();">清空</a></dt>';
+			if(jsondata.length > 30){
+				MAC.History.Clear();
+			}
 			if(jsondata.length > 0){
 				for($i=0; $i<jsondata.length; $i++){
 					if($i%2==1){
@@ -54,7 +57,6 @@
 					}else{
 						html +='<dd class="even">';
 					}
-					console.log(jsondata[$i]);
 					html +='<a href="'+jsondata[$i].link+'" class="hx_title" title="'+jsondata[$i].name+'">'+jsondata[$i].name+'</a></dd>';
 				}
 			}else{
