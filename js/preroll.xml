@@ -6,12 +6,12 @@
       <AdTitle>ZsCz AD</AdTitle>
       <Creatives>
         <Creative sequence="1">
-          <Linear skipoffset="00:00:02">
+          <Linear skipoffset="00:00:03">
             <VideoClicks>
               <ClickThrough>https://www.xiangkanju.cc</ClickThrough>
             </VideoClicks>
             <MediaFiles>
-              <MediaFile id="1" delivery="progressive" type="video/mp4" width="100%" height="100%">/zs/cache/feiyan_kj.m3u8?ad</MediaFile>
+              <MediaFile id="1" delivery="progressive" type="video/mp4" width="100%" height="100%">https://1251316161.vod2.myqcloud.com/3657c90cvodtranssh1251316161/bea27d735285890813835118964/v.f240.m3u8?ad</MediaFile>
             </MediaFiles>
           </Linear>
         </Creative>
