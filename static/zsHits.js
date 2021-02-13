@@ -1,4 +1,4 @@
-var MAC = {
+﻿var MAC = {
 	'History': {
 		'Limit':20,
 		'Days':3,
@@ -494,6 +494,14 @@ var MAC = {
 								showConfirmButton: false,
 								timer: 3000
 							})
+ 					} else if ('place' == data) {
+							Swal.fire({
+								text: '',
+								html: '不要分享或共用账号 <br/> <br/>4小时内您有异地登陆,请4小时后使用<br/> <br/>若检测到您有长期异地登陆记录封号处理',
+								type: 'warning',
+								showConfirmButton: false,
+								timer: 9000
+							})							
  					} else {
 							Swal.fire({
 								text: '未知错误！联系管理员QQ 3324219893',
