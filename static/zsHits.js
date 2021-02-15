@@ -381,7 +381,7 @@
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
+			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
             preConfirm: (code) => {                
 			    if(code.match(reg)){
 					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
@@ -497,7 +497,7 @@
  					} else if ('place' == data) {
 							Swal.fire({
 								text: '',
-								html: '不要分享或共用账号 <br/> <br/>4小时内您有异地登陆,请4小时后使用<br/> <br/>若检测到您有长期异地登陆记录封号处理',
+								html: '不要分享或共用账号 <br/> <br/>4小时内您有异地登陆,请4小时后使用<br/> <br/>若检测到您有长期异地登陆记录封号处理<br/> <br/>若有误&有疑问请联系管理员QQ 3324219893',
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 9000
@@ -508,6 +508,7 @@
 								type: 'warning',
 								showConfirmButton: true,
 							})
+							setTimeout(function(){window.location.reload()},1*6000)
  					}
  				})
  			}
