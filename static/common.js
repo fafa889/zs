@@ -1,3 +1,4 @@
+var killErrors=function(value){return true};window.onerror=null;window.onerror=killErrors;
 var MAC = {
 	'History': {
 		'Limit':20,
@@ -385,7 +386,7 @@ var MAC = {
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://tu.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
+			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
             preConfirm: (code) => {                
 			    if(code.match(reg)){
 					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
@@ -457,7 +458,6 @@ var MAC = {
 	},
 	'Login': function () {
 		Swal.fire({
-			position:'top',
 			title: '用户登录 - XiangKanJu.Cc',
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
 			html: '<br><div class="input-group"><span class="input-group-addon">用户</span><input type="text" class="form-control" id="u_name" name="u_name" placeholder="请输入用户名"></div><br><div class="input-group"><span class="input-group-addon">密码</span><input type="password" class="form-control" id="u_password" name="u_password" placeholder="6-16个字符"></div>',
@@ -472,7 +472,6 @@ var MAC = {
 		}).then(function(result) {
  			if (result.value) {
 				var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
-				console.log(result.value);
 				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg)){
 					Swal.fire({
 						html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
@@ -482,41 +481,47 @@ var MAC = {
 					return false;
 				};
  				swal.showLoading();
- 				$.post(SitePath + '?m=user-check' ,{
- 					u_name: $("#u_name").val(),u_password: $("#u_password").val()
- 				}, function(data) {
- 					if ('success' == data) {
+				$.ajax({
+					url: "/?m=user-check",
+					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val()},
+					dataType: "json",
+					type: "post",
+					success: function(e) {
+ 						if (e.code == 200) {
 							Swal.fire({
-								title: '想看剧欢迎您！登录成功',
+								title: e.title,
 								type: 'success',
 								showConfirmButton: false,
 								timer: 1500
 							});
 							location.href = location.href;
- 					} else if ('up_err' == data) {
+ 						} else if (e.code == 403) {
 							Swal.fire({
-								text: '账户或密码错误，请重试!',
+								text: e.title,
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 3000
 							})
- 					} else if ('place' == data) {
+ 						} else if (e.code == 405) {
 							Swal.fire({
 								text: '',
-								html: '不要分享或共用账号 <br/> <br/>4小时内您有异地登陆,请4小时后使用<br/> <br/>若检测到您有长期异地登陆记录封号处理<br/> <br/>若有误&有疑问请联系管理员QQ 3324219893',
+								html: e.title,
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 9000
 							})							
- 					} else {
-							Swal.fire({
-								text: '未知错误！联系管理员QQ 3324219893',
-								type: 'warning',
-								showConfirmButton: true,
-							})
- 					}
- 				})
- 			}
+ 						} 
+ 				    },
+					error: function(obj) {
+						Swal.fire({
+							text: '未知错误！联系管理员QQ 3324219893',
+							type: 'warning',
+							showConfirmButton: true,
+						})
+						setTimeout(function(){window.location.reload()},1*6000)
+		           }					
+ 			    })
+		    }
  		});
 	}
 };
