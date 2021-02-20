@@ -296,6 +296,17 @@ var MAC = {
  			}
  		});
 	},
+	'Explain': function () {
+		Swal.fire({
+			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送7天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
+			showCloseButton: true,
+			showCancelButton: false,
+			showConfirmButton: false,
+			focusConfirm: false,
+			footer:'<span class="glyphicon glyphicon-tags"> 关于用户权益疑问请联系 QQ；3324219893</span>'
+		});	
+	},
 	'Regup': function () {
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 		var ifup = /^(?=.*\d+.*)(?=.*[a-z]+.*)[\da-z_]{5,17}$/;
@@ -312,8 +323,7 @@ var MAC = {
 			footer:'<span class="glyphicon glyphicon-tags"> 注册中遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
- 			title: '账号注册',
- 			html: '<strong><a>请输入要注册的用户名</a></strong>',
+ 			html: '<button type="button" class="btn btn-danger"><a onclick="MAC.Explain();"> </a>「注册前点我必看说明」</button><br><br/><strong><a>请输入要注册的用户名</a></strong>',
             preConfirm: (name) => {
 			    if(name.match(reg)){
 					swal.showValidationMessage('账号包含特殊字符 正确示例[abc123]字母加数字');
