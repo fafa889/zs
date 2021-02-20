@@ -327,7 +327,7 @@ var MAC = {
 			footer:'<span class="glyphicon glyphicon-tags"> 注册中遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
- 			html: '<button type="button" class="btn btn-danger"><a onclick="MAC.Explain();"> </a>「注册前点我必看说明」</button><br><br/><strong><a>请输入要注册的用户名</a></strong>',
+ 			html: '<button type="button" class="btn btn-danger"><a onclick="MAC.Explain();"> 「注册前点我必看说明」</a></button><br><br/><strong><a>请输入要注册的用户名</a></strong>',
             preConfirm: (name) => {
 			    if(name.match(reg)){
 					swal.showValidationMessage('账号包含特殊字符 正确示例[abc123]字母加数字');
@@ -499,7 +499,7 @@ var MAC = {
 					success: function(e) {
  						if (e.code == 200) {
 							Swal.fire({
-								title: e.title,
+								html: e.title,
 								type: 'success',
 								showConfirmButton: false,
 								timer: 1500
@@ -507,14 +507,13 @@ var MAC = {
 							location.href = location.href;
  						} else if (e.code == 403) {
 							Swal.fire({
-								text: e.title,
+								html: e.title,
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 3000
 							})
  						} else if (e.code == 405) {
 							Swal.fire({
-								text: '',
 								html: e.title,
 								type: 'warning',
 								showConfirmButton: false,
