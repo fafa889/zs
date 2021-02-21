@@ -396,7 +396,7 @@ var MAC = {
  		}, {
  			input: 'text',
  			title: '账号注册',
-			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
+			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://v.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
             preConfirm: (code) => {                
 			    if(code.match(reg)){
 					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
