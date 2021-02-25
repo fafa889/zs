@@ -299,7 +299,7 @@ var MAC = {
 	'Explain': function () {
 		Swal.fire({
 			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送7天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
+			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送28天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
 			showCloseButton: true,
 			showCancelButton: false,
 			showConfirmButton: false,
