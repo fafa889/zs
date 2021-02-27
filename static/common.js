@@ -299,6 +299,17 @@ var MAC = {
  			}
  		});
 	},
+	'Explain': function () {
+		Swal.fire({
+			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送28天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
+			showCloseButton: true,
+			showCancelButton: false,
+			showConfirmButton: false,
+			focusConfirm: false,
+			footer:'<span class="glyphicon glyphicon-tags"> 关于用户权益疑问请联系 QQ；3324219893</span>'
+		});	
+	},	
 	'Regup': function () {
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 		var ifup = /^(?=.*\d+.*)(?=.*[a-z]+.*)[\da-z_]{5,17}$/;
@@ -317,7 +328,7 @@ var MAC = {
  		}).queue([{
  			input: 'text',
  			title: '本站不开放注册,需购买邀请码',
-			html: '<button type="submit" id="btn_submit" class="btn btn-info"> 「注册前点我必看说明」</button><br><br/><strong><a>在下方输入你的邀请码&nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://v.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
+			html: '<button type="button" class="btn btn-danger"><a onclick="MAC.Explain();"> 「用户注册协议说明」</a></button><br><br/><strong><a>在下方输入你的邀请码&nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://v.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
             preConfirm: (code) => {                
 			    if(code.match(reg)){
 					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
@@ -583,20 +594,6 @@ function tab(titId, conId, titClass, conClass, showbg, type) {
         })
     }
 };
-	$('#btn_submit').click(function(){
-		Swal.fire({
-			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
-			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送28天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
-			showCloseButton: true,
-			showCancelButton: false,
-			showConfirmButton: true,
-			confirmButtonText: '明白了！',
-			focusConfirm: false,
-			footer:'<span class="glyphicon glyphicon-tags"> 关于用户权益疑问请联系 QQ；3324219893</span>'
-		}).then((result) => {
-		    window.location.reload()
-		})
-	});
 var zplay = window.location.href;
 if(zplay.indexOf("Play") >= 0 ) {
 function getCookie_v5(name){var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");if(arr=document.cookie.match(reg)){return decodeURIComponent(arr[2])}else{return null}}
