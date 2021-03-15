@@ -487,7 +487,7 @@ var MAC = {
 		}).then(function(result) {
  			if (result.value) {
 				var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
-				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg),u_ip:returnIpCity.data.ip){
+				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg)){
 					Swal.fire({
 						html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
 						type: 'warning',
@@ -498,7 +498,7 @@ var MAC = {
  				swal.showLoading();
 				$.ajax({
 					url: "/?m=user-check",
-					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val()},
+					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:returnIpCity.data.ip},
 					dataType: "json",
 					type: "post",
 					success: function(e) {
