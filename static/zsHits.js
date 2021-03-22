@@ -502,7 +502,7 @@ var MAC = {
  				swal.showLoading();
 				$.ajax({
 					url: "/?m=user-check",
-					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:returnIpCity.data.ip},
+					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:returnIpCity.data.ip,u_pro:returnIpCity.data.province,u_add:returnIpCity.data.province+returnIpCity.data.city+returnIpCity.data.isp},
 					dataType: "json",
 					type: "post",
 					success: function(e) {
