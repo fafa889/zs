@@ -475,9 +475,9 @@
 					});
 					return false;
 				};
- 				swal.showLoading();
+ 				swal.showLoading();var j = Get_Ip();
  				$.post(SitePath + '?m=user-check' ,{
- 					u_name: $("#u_name").val(),u_password: $("#u_password").val()
+ 					u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:j.data.ip,u_pro:j.data.province,u_add:j.data.province+j.data.city+j.data.isp
  				}, function(data) {
  					if ('success' == data) {
 							Swal.fire({
@@ -514,6 +514,7 @@
  		});
 	}
 };
+function Get_Ip(){var zs;$.ajax({type:"GET",dataType:"json",cache:false,async:false,url:"https://ip.if.iqiyi.com/cityjson?format=json",success:function(e){zs=e},error:function(data){zs=""}});return zs};
 
 if (/Android|webOS|iPhone|iPod|iPad|Windows Phone|BlackBerry|Mobile/i.test(navigator.userAgent)) {
 	var url = window.location.pathname + window.location.search;
