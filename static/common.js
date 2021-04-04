@@ -498,7 +498,7 @@ var MAC = {
  				swal.showLoading();var j = Get_Ip();
 				$.ajax({
 					url: "/?m=user-check",
-					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:j.ip,u_pro:j.province,u_add:j.province+j.city+j.distinct+j.isp},
+					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:j.data.ip,u_pro:j.data.province,u_add:j.data.province+j.data.city+j.data.isp},
 					dataType: "json",
 					type: "post",
 					success: function(e) {
@@ -539,7 +539,8 @@ var MAC = {
  		});
 	}
 };
-function Get_Ip(){var zs;$.ajax({type:"GET",dataType:"json",cache:false,async:false,url:"https://forge.speedtest.cn/api/location/info",success:function(e){zs=e},error:function(data){zs=""}});return zs};
+//https://forge.speedtest.cn/api/location/info
+function Get_Ip(){var zs;$.ajax({type:"GET",dataType:"json",cache:false,async:false,url:"https://ip.if.iqiyi.com/cityjson?format=json",success:function(e){zs=e},error:function(data){zs=""}});return zs};
 setInterval("checkCache()",500000);function checkCache(){$.ajax({url:'/inc/ajax.php?ac=checkcache&zs=data',cache:false,success:function(res){console.log('刷新缓存成功')}})}
 
 function uaredirect(f){try{if(document.getElementById("bdmark")!=null){return}var b=false;if(arguments[1]){var e=window.location.host;var a=window.location.href;if(isSubdomain(arguments[1],e)==1){f=f+"/#v/"+a;b=true}else{if(isSubdomain(arguments[1],e)==2){f=f+"/#v/"+a;b=true}else{f=a;b=false}}}else{b=true}if(b){var c=window.location.hash;if(!c.match("mobile")){if(!(navigator.userAgent.match(/(iPhone|iPod|ipad|Android|mobile|blackberry|webos|incognito|webmate|bada|nokia|lg|ucweb|ios|skyfire)/i))){location.replace(f)}}}}catch(d){}}function isSubdomain(c,d){this.getdomain=function(f){var e=f.indexOf("://");if(e>0){var h=f.substr(e+3)}else{var h=f}var g=/^www\./;if(g.test(h)){h=h.substr(4)}return h};if(c==d){return 1}else{var c=this.getdomain(c);var b=this.getdomain(d);if(c==b){return 1}else{c=c.replace(".","\\.");var a=new RegExp("\\."+c+"$");if(b.match(a)){return 2}else{return 0}}}};
