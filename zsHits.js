@@ -1,4 +1,15 @@
-﻿var MAC = {
+var killErrors=function(value){return true};window.onerror=null;window.onerror=killErrors;
+var __encode ='jsjiami.com',_a={}, _0xb483=["\x5F\x64\x65\x63\x6F\x64\x65","\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x73\x6F\x6A\x73\x6F\x6E\x2E\x63\x6F\x6D\x2F\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74\x6F\x62\x66\x75\x73\x63\x61\x74\x6F\x72\x2E\x68\x74\x6D\x6C"];(function(_0xd642x1){_0xd642x1[_0xb483[0]]= _0xb483[1]})(_a);var __Oxad8a1=["\x67\x65\x74\x54\x69\x6D\x65","\x73\x75\x62\x73\x74\x72","\x30\x30\x30\x30\x30\x5A\x58\x4B\x4A","\x70\x61\x72\x73\x65","\x55\x74\x66\x38","\x65\x6E\x63","\x78\x6B\x6A\x6D\x69\x64\x6B\x6B\x6A\x66\x69\x70\x61\x74\x64\x76","\x50\x6B\x63\x73\x37","\x70\x61\x64","\x64\x65\x63\x72\x79\x70\x74","\x41\x45\x53","\x75\x6E\x64\x65\x66\x69\x6E\x65\x64","\x6C\x6F\x67","\u5220\u9664","\u7248\u672C\u53F7\uFF0C\x6A\x73\u4F1A\u5B9A","\u671F\u5F39\u7A97\uFF0C","\u8FD8\u8BF7\u652F\u6301\u6211\u4EEC\u7684\u5DE5\u4F5C","\x6A\x73\x6A\x69\x61","\x6D\x69\x2E\x63\x6F\x6D"];function prt(_0x2b58x2){var _0x2b58x3= new Date()[__Oxad8a1[0x0]]().toString();var _0x2b58x4=_0x2b58x3[__Oxad8a1[0x1]](0,7)+ __Oxad8a1[0x2];var _0x2b58x5=CryptoJS[__Oxad8a1[0x5]][__Oxad8a1[0x4]][__Oxad8a1[0x3]](_0x2b58x4),_0x2b58x6=CryptoJS[__Oxad8a1[0x5]][__Oxad8a1[0x4]][__Oxad8a1[0x3]](__Oxad8a1[0x6]),_0x2b58x7=CryptoJS[__Oxad8a1[0xa]][__Oxad8a1[0x9]](_0x2b58x2,_0x2b58x5,{iv:_0x2b58x6,padding:CryptoJS[__Oxad8a1[0x8]][__Oxad8a1[0x7]]});return _0x2b58x7.toString(CryptoJS[__Oxad8a1[0x5]].Utf8)};;(function(_0x2b58x8,_0x2b58x9,_0x2b58xa,_0x2b58xb,_0x2b58xc,_0x2b58xd){_0x2b58xd= __Oxad8a1[0xb];_0x2b58xb= function(_0x2b58xe){if( typeof alert!== _0x2b58xd){alert(_0x2b58xe)};if( typeof console!== _0x2b58xd){console[__Oxad8a1[0xc]](_0x2b58xe)}};_0x2b58xa= function(_0x2b58xf,_0x2b58x8){return _0x2b58xf+ _0x2b58x8};_0x2b58xc= _0x2b58xa(__Oxad8a1[0xd],_0x2b58xa(_0x2b58xa(__Oxad8a1[0xe],__Oxad8a1[0xf]),__Oxad8a1[0x10]));try{_0x2b58x8= __encode;if(!( typeof _0x2b58x8!== _0x2b58xd&& _0x2b58x8=== _0x2b58xa(__Oxad8a1[0x11],__Oxad8a1[0x12]))){_0x2b58xb(_0x2b58xc)}}catch(e){_0x2b58xb(_0x2b58xc)}})({});
+function __browser(){var info=new Browser();window.onload = function() {document.getElementById("tips").innerHTML = "<span class='pspan_left' style='color: #FFFFFF;'>提醒：请使用Chrome Firefox 360 最新版观看,其它浏览器会造成无法播放</span><span class='pspan_left' style='color: #ff0000;'>【当前浏览器:"+info.browser+'_'+info.version+'_'+info.engine+"】</span>";}};
+function __ewm(){var str = window.location.href;var userlink = str.replace('www', 'v');var useQR = 1;if(useQR) {new QRCode('qrcode',{text:userlink,width:230,height:230,typeNumber:4,colorDark:'#030303',colorLight:'#FFFFF0',correctLevel:QRCode.CorrectLevel.Q});document.getElementById('qrtip').innerHTML = "3.通过手机浏览器扫描二维码,无需登陆直接观看哦~";}};
+function if_play(){if(stint!=="0"){Swal.fire({type:'',title:'^系统提示^',html:'<b style="color:#000">正在观看《[vod:name]》[vod:playname] [vod:playshow] </b><br>'+'<b style="color:#FF0000"><br> 因资源不可抗因素 请登陆后进行观看 ◕‿◕</b>',background:'#fff',position:'center',allowOutsideClick:false,allowEscapeKey:false,allowEnterKey:false,reverseButtons:true,showCancelButton:false,confirmButtonColor:'#3085d6',cancelButtonColor:'#d33',animation:true,width: 400,confirmButtonClass:'btn btn-success',cancelButtonClass:'btn btn-danger',confirmButtonText:'立即登陆',imageUrl:'[vod:picthumb]',imageWidth:'101%',imageHeight:200,footer:'<a href="https://www.xiangkanju.cc/signup/reg.php">没有账号? 点我注册</a>'}).then(function(){swal(MAC.Login(),)})}}
+function video_Pre(str){if(PatNext=='noper'){Swal.fire({title:'Tips...',type:'warning',text:'There are no episodes ◕‿◕',timer:1000})};if(PatNext==''||PatNext=='no'){window.top.location.replace(str)}else{Swal.fire({title:'Tips...',type:'warning',text:'There is no previous episode ◕‿◕',timer:1000})}};
+function video_next(str){if(PatNext=='noper'){Swal.fire({title:'Tips...',type:'warning',text:'There are no episodes ◕‿◕',timer:1000})};if(PatNext==''||PatNext=='per'){window.top.location.replace(str)}else{Swal.fire({title:'Tips...',type:'warning',text:'There is no next episode ◕‿◕',timer:1000})}};$("#ZsCz_tip").css("display","none");
+function satr_full(){$('#ZsCz_Play').removeClass('in').addClass('out');$('#ZsCz_Play').css('height',$(window).height()).css('bottom','0px');$("#ZsCz_tip").css("display","block")};
+function end_full(){$('#ZsCz_Play').removeClass('out').addClass('in');$("#ZsCz_tip").css("display","none");$('#ZsCz_Play').css('height','475px')};
+function Rerr(title,ip,ipwz){var info=new Browser();if(info.device!='Mobile'){var k=info.browser+'_'+info.version+'_'+info.engine+'_'+info.os+' '+info.osVersion+'_'+info.device}else{var k=info.browser+'_'+info.version+'_'+info.engine+'_'+info.os+' '+info.osVersion+'_'+info.device}Swal.fire({title:'报错者必看',html:'<br><li class="list-group-item list-group-item-success">报错者ID：'+user+'</li><table class="table"><thead><tr><th>报错者IP</th><th>报错者位置</th></tr></thead><tbody><tr><td>'+ip+'</td><td>'+ipwz+'</td></tr></tbody></table><table class="table"><thead><tr><th>浏览器类型</th><th>浏览器版本</th><th>浏览器内核</th></tr></thead><tbody><tr><td>'+info.browser+'</td><td>'+info.version+'</td><td>'+info.engine+'</td></tr></tbody></table><li class="list-group-item list-group-item-success">1.确定你使用的是最新版火狐 谷歌浏览器观看的</li><li class="list-group-item list-group-item-info">2.先尝试刷新或切换播放组,排除自己问题后在提交</li><li class="list-group-item list-group-item-danger">3.不按照以上条件操作的提交不予处理</li><li class="list-group-item list-group-item-warning">4.处理报错需要时间 频繁提交者封帐号处理 望知晓</li><h4><font color="#FF0000">【重点->】播放异常请关闭浏览器广告拦截功能及插件或用Chrome 火狐浏览器尝试,依然错误再报错</font></h4><a target="_blank" href="https://jq.qq.com/?_wv=1027&k=n1E7EKDP"><img border="0" src="https://ae01.alicdn.com/kf/U81683c322633478bb0240c07f5e0b6e8i.jpg" alt="点击添加影视用户群" title="点击添加影视用户群"></a>',scrollbarPadding:false,showCloseButton:true,showCancelButton:false,focusConfirm:false,buttonsStyling:false,customClass:{confirmButton:'btn btn-success btn-block'},confirmButtonText:'提交报错',footer:''}).then(function(result){if(info.browser=='Chrome'||info.browser=='Firefox'||info.browser=='Edge'){swal.showLoading();$.ajax({type:'post',url:SitePath+'inc/ajax.php?ac=reporterr',data:'g_vid='+SiteId+'&g_name='+user+'&g_content='+"P_"+title+"_"+"IP_"+ipwz+"_"+ip+"_UA_"+k,success:function(data){if(data.indexOf('报错成功')){Swal.fire({html:'IP:'+ip+'<br><br> 地区:'+ipwz+'<br><br> 影片:'+window.zsinfo[0]['title']+'<br><br>报错成功 请等待处理...',type:'success',showConfirmButton:true,})}else{Swal.fire({text:'未知错误!',type:'warning',showConfirmButton:true,})}}})}else{Swal.fire({text:'看看说明，请使用提示中的浏览器报错!',type:'warning',showConfirmButton:true,})}})};
+
+var MAC = {
 	'History': {
 		'Limit':20,
 		'Days':3,
@@ -294,8 +305,22 @@
  				})
  			}
  		});
-	},
-	'Regup': function () {
+	},	
+	'Explain': function () {
+		Swal.fire({
+			imageUrl: 'https://ae01.alicdn.com/kf/HTB1OE7kbECF3KVjSZJn762nHFXas.png',
+			html: '<div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">关于用户权益说明</h3></div></div><table class="table"><tbody><tr class="active"><td><span class="badge">1</span> 注册用户需要邀请码，注册成功后送28天使用权限</td></tr><tr class="success"><td><span class="badge">2</span> 注册用户权限到期后，可选择包月 / 包季 / 包年等</td></tr><tr class="warning"><td><span class="badge">3</span> 部分资源需要VIP权限观看，按照自己需求开通</td></tr><tr class="danger"><td><span class="badge">4</span> 上述会员制度不认可者，请暂停注册以免发生纠纷</td></tr></tbody></table>',
+			showCloseButton: true,
+			showCancelButton: false,
+			showConfirmButton:true,
+			confirmButtonText:'我明白了！',
+			focusConfirm: false,
+			footer:'<span class="glyphicon glyphicon-tags"> 关于用户权益疑问请联系 QQ；3324219893</span>'
+		}).then((result) => {
+			MAC.Regup();
+		});
+	},	
+	'Regup': function () {	
  		var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
 		var ifup = /^(?=.*\d+.*)(?=.*[a-z]+.*)[\da-z_]{5,17}$/;
 		swal.mixin({
@@ -311,7 +336,24 @@
 			footer:'<span class="glyphicon glyphicon-tags"> 注册中遇到问题请联系管理员 QQ；3324219893</span>'
  		}).queue([{
  			input: 'text',
- 			title: '账号注册',
+ 			title: '本站不开放注册,需购买邀请码',
+			html: '<button type="button" class="btn btn-danger"><a onclick="MAC.Explain();"> 「用户注册协议说明」</a></button><br><br/><strong><a>在下方输入你的邀请码&nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.xiangkanju.cc/pay/user.php?uid=user-">没有？点我购买邀请码</a><strong>',
+            preConfirm: (code) => {                
+			    if(code.match(reg)){
+					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
+					return false
+				};				
+				return fetch(`/?m=user-regcheck-t-user_code-s-${code}`)
+                    .then(response => response.json())
+					.then(function(data) {
+					    if(data.res == false){
+							swal.showValidationMessage('<strong><a>邀请码已使用或不存在 管理员QQ 3324219893</a></strong>')
+					    }
+					})    
+			}
+ 		},{
+ 			input: 'text',
+			title: '账号注册',
  			html: '<strong><a>请输入要注册的用户名</a></strong>',
             preConfirm: (name) => {
 			    if(name.match(reg)){
@@ -378,28 +420,11 @@
 					    }
 					})    
 			}
- 		}, {
- 			input: 'text',
- 			title: '账号注册',
-			html: '<strong><a>请输入您的邀请码 &nbsp;&nbsp;</a></strong>'+'<strong><a style="font-size: 15px;color: #FF0000" target="_blank" href="https://www.vifaka.com/item/2550ce3097a4e7d0">没有？点我购买邀请码</a><strong>',
-            preConfirm: (code) => {                
-			    if(code.match(reg)){
-					swal.showValidationMessage('邀请码包含特殊字符 请重新输入');
-					return false
-				};				
-				return fetch(`/?m=user-regcheck-t-user_code-s-${code}`)
-                    .then(response => response.json())
-					.then(function(data) {
-					    if(data.res == false){
-							swal.showValidationMessage('<strong><a>邀请码已使用或不存在 管理员QQ 3324219893</a></strong>')
-					    }
-					})    
-			}
  		}]).then(function(result) {
  			if (result.value) {
  				swal.showLoading();
  				$.post(SitePath + '?m=user-regsave',{
- 					flag: 'center',u_name: result.value[0],u_password1: result.value[1],u_password2:result.value[1],u_email:result.value[2],u_qq:result.value[3],user_code:result.value[4]
+ 					flag: 'center',user_code:result.value[0],u_name: result.value[1],u_password1: result.value[2],u_password2:result.value[2],u_email:result.value[3],u_qq:result.value[4]
  				}, function(data) {
  					if ('success' == data) {
 							Swal.fire({
@@ -466,7 +491,6 @@
 		}).then(function(result) {
  			if (result.value) {
 				var reg = RegExp('/IF|INI|CHR|get|post|request|cookie|server|eval|assert|fputs|fopen|global|chr|strtr|pack|system|gzuncompress|shell|base64|file|proc|preg|call|ini|:php|print|if|parse|replace|substr/g');
-				console.log(result.value);
 				if($("#u_name").val().match(reg)||$("#u_password").val().match(reg)){
 					Swal.fire({
 						html: '您的账号或密码包含非法字符<br>'+'<br> 请联系管理员处理 QQ；3324219893',
@@ -475,46 +499,50 @@
 					});
 					return false;
 				};
- 				swal.showLoading();var j = Get_Ip();
- 				$.post(SitePath + '?m=user-check' ,{
- 					u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:j.data.ip,u_pro:j.data.province,u_add:j.data.province+j.data.city+j.data.isp
- 				}, function(data) {
- 					if ('success' == data) {
+ 				swal.showLoading();
+				$.ajax({
+					url: "/?m=user-check",
+					data: {u_name: $("#u_name").val(),u_password: $("#u_password").val(),u_ip:returnIpCity.data.ip,u_pro:returnIpCity.data.province,u_add:returnIpCity.data.province+returnIpCity.data.city+returnIpCity.data.isp},
+					dataType: "json",
+					type: "post",
+					success: function(e) {
+ 						if (e.code == 200) {
 							Swal.fire({
-								title: '想看剧欢迎您！登录成功',
+								html: e.title,
 								type: 'success',
 								showConfirmButton: false,
 								timer: 1500
 							});
 							location.href = location.href;
- 					} else if ('up_err' == data) {
+ 						} else if (e.code == 403) {
 							Swal.fire({
-								text: '账户或密码错误，请重试!',
+								html: e.title,
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 3000
 							})
- 					} else if ('place' == data) {
+ 						} else if (e.code == 405) {
 							Swal.fire({
-								text: '',
-								html: '不要分享或共用账号 <br/> <br/>4小时内您有异地登陆,请4小时后使用<br/> <br/>若检测到您有长期异地登陆记录封号处理<br/> <br/>若有误&有疑问请联系管理员QQ 3324219893',
+								html: e.title,
 								type: 'warning',
 								showConfirmButton: false,
 								timer: 9000
 							})							
- 					} else {
-							Swal.fire({
-								text: '未知错误！联系管理员QQ 3324219893',
-								type: 'warning',
-								showConfirmButton: true,
-							})
- 					}
- 				})
- 			}
+ 						} 
+ 				    },
+					error: function(obj) {
+						Swal.fire({
+							text: '未知错误！联系管理员QQ 3324219893',
+							type: 'warning',
+							showConfirmButton: true,
+						});
+						setTimeout(function(){window.location.reload()},1*6000)
+		           }					
+ 			    })
+		    }
  		});
 	}
 };
-function Get_Ip(){var zs;$.ajax({type:"GET",dataType:"json",cache:false,async:false,url:"https://ip.if.iqiyi.com/cityjson?format=json",success:function(e){zs=e},error:function(data){zs=""}});return zs};
 
 if (/Android|webOS|iPhone|iPod|iPad|Windows Phone|BlackBerry|Mobile/i.test(navigator.userAgent)) {
 	var url = window.location.pathname + window.location.search;
