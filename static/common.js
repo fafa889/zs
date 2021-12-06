@@ -418,13 +418,14 @@ var MAC = {
  		}]).then(function(result) {
  			if (result.value) {
  				swal.showLoading();
+				localStorage.setItem('useradd', '你的用户名：'+result.value[1]+'<br>你的密码：'+result.value[2]);
  				$.post(SitePath + '?m=user-regsave',{
  					flag: 'center',user_code:result.value[0],u_name: result.value[1],u_password1: result.value[2],u_password2:result.value[2],u_email:result.value[3],u_qq:result.value[4]
  				}, function(data) {
  					if ('success' == data) {
 							Swal.fire({
 								imageUrl: 'https://ae01.alicdn.com/kf/HTB11YombEKF3KVjSZFE760ExFXa2.png',
-								html: '<b>注册成功 感谢您的支持！</b> '+'<a onclick="MAC.Login();"> 点我登录</a>',
+								html: '<b>注册成功 感谢您的支持！</b> '++localStorage.getItem('useradd')+'<>br<a onclick="MAC.Login();"> 点我登录</a>',
 								type: 'success',
 								allowOutsideClick: false,
 								confirmButtonText: '立即登录',
